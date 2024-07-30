@@ -1,8 +1,52 @@
 # SOLID
 
-Integrantes del grupo:
-    + Juan David Cetina Gomez
-    + Juliana Isabel Espinel Cortes
-    + Ana Lucia Quintero Vargas
+Integrantes del grupo: Juan David Cetina Gomez, Juliana Isabel Espinel Cortes y Ana Lucia Quintero Vargas
 
-Objetivo: identificar los principios SOLID violados en clases y codificar su solucion para que se puedan cumplir.
+Objetivos: identificar los principios SOLID violados en las clases presentadas y codificar su solucion para que se puedan cumplir.
+
+
+PRINCIPIOS SOLID VIOLADOS:
+
+
+Single Responsability Principle (SRP):
+
+
+
+Open/Closed Principle (OCP):
+
+
+
+Liskov's Substitution Principle (LSP):
+
+
+
+Interface Segregation Principle (ISP):
+
+
+
+Dependency Inversion Principle (DIP):
+
+
+
+
+CODIGOS SOLUCION:
+
+
+Single Responsability Principle (SRP):
+
+
+
+Open/Closed Principle (OCP):
+
+
+
+Liskov's Substitution Principle (LSP):
+
+
+
+Interface Segregation Principle (ISP):
+
+
+
+Dependency Inversion Principle (DIP):
+
