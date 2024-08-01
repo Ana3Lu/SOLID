@@ -2,8 +2,13 @@ package com.example.demo.unsolid;
 
 public class SalaryCalculator {
 
+    private EmployeeManager em;
+
+    public SalaryCalculator(EmployeeManager employeeManager) {
+        this.em = employeeManager;
+    }
+
     public double calculateSalary(String name) {
-        EmployeeManager employeeManager = new EmployeeManager();
-        return employeeManager.calculateSalary(name);
+        return this.em.calculateSalary(name);
     }
 }
