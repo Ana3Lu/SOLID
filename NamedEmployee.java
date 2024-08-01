@@ -1,5 +1,3 @@
-package com.example.demo.unsolid;
-
 public interface NamedEmployee {
     String getName();
 }

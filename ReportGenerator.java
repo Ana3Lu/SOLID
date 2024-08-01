@@ -1,4 +1,5 @@
-import com.example.demo.unsolid.EmployeeManager;
+package com.example.demo.unsolid;
+
 public class ReportGenerator {
 
     private Report report;
@@ -9,9 +10,6 @@ public class ReportGenerator {
 
     public void generateReport(EmployeeManager employeeManager) {
         System.out.println("Generando reporte");
-        this.report.generarReporte();
+        report.generarReporte(employeeManager);
     }
-
-
 }
-

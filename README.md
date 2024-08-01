@@ -10,7 +10,7 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 1 - SINGLE RESPONSABILITY PRINCIPLE (SRP):
 
-+ Tanto la interfaz EmployeeOperations como la clase EmployeeManager (que implementa de la primera) violan este principio al asumir varias responsabilidades a la vez, como: agregar y remover un empleado, calcular salario y guardar en un archivo. Principalmente, esto hace que la clase pueda verse modificada por varias razones y no solo una, haciendo que su código sea más propenso a errores y se dificulte su mantenimiento.
++ Tanto la interfaz EmployeeOperations como la clase EmployeeManager (que implementa de la primera) violan este principio al asumir varias responsabilidades a la vez, como: agregar y remover un empleado, calcular salario y poder guardar en un archivo. Principalmente, esto hace que la clase pueda verse modificada por varias razones y no solo una, haciendo que su código sea más propenso a errores y se dificulte su mantenimiento.
 
 + En la clase SalaryCalculator se viola este principio, ya que se le esta asumiendo la responsabilidad adicional de crear una instancia para un objeto de otra clase.
 
@@ -38,24 +38,28 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 1 - SINGLE RESPONSABILITY PRINCIPLE (SRP):
 
-+ En cuanto a la clase EmployeeManager, se pueden mover los métodos de calculateSalary y saveToFile a otras dos clases distintas para que solo se maneje la responsabilidad de agregar o eliminar un empleado.
++ En cuanto a la clase EmployeeManager, se pueden mover los métodos de calculateSalary y saveToFile a otras dos clases concretas distintas, para que así solo se maneje desde EmployeeManager la responsabilidad de gestionar empleados, es decir, de poder agregar o eliminarlos. Esto implica tener que quitar esos mismos métodos de la interfaz EmployeeOperations de la cual implementa la clase EmployeeManager.
 
-+ Para que la clase ReportGenerator cumpla también con este principio, se divide sus responsabilidades en dos clases específicas (ReportExcel y ReportPDF), las cuales implementan de la interface Report.
+Por un lado, se modifica la clase SalaryCalculator para solo tenga el método calculateSalary y que se encargue exclusivamente del cálculo del salario (evitando la responsabilidad de tener que instanciar un EmployeeManager). 
+
+Por otro lado, debido a que el método de saveToFile tampoco se encuentra relacionado con la gestión de empleados sino con la persistencia de datos, se transfiere esta responsabilidad a la nueva clase EmployeePersistence.
+
++ Para que la clase ReportGenerator cumpla también con este principio, se divide sus responsabilidades en dos nuevas clases concretas que son ReportExcel y ReportPDF, las cuales implementan de la nueva interfaz Report que las fuerza a implementar el método generarReporte, que recibe como parámetro una instancia de EmployeeManager (como estaba originalmente en los métodos de ReportGenerator).
 
 2 - OPEN/CLOSED PRINCIPLE (OCP):
 
-+ Se vió conveniente crear la interface Report y las clases ReportPDF y ReportExcel; asimismo, se modificó la clase ReportGenerator, para que se respete este principio.
-
-+ Con relación a los reportes, crear la interface Report e implementar las clases ReportExcel y ReportPDF permiten cumplir con este principio. Esto debido a que se permite crear nuevas clases que implementen de la interface Report, haciendo que en un futuro se puedan añadir nuevos formatos de reporte (abierto a la extensión), sin que todo este proceso llegue a alterar el código existente.
++ Con relación a los reportes, se crea la interfaz Report y se implementa las clases ReportExcel y ReportPDF para que se pueda cumplir con este principio, debido a que esto permite crear nuevas clases que puedan implementar de la interfaz Report y así se pueda añadir nuevos formatos de reporte en un futuro (abierto a la extensión), sin que esta acción llegue a alterar el código existente de las clases involucradas como ReportGenerator.
   
 3 - LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
 
-+ Con relación a la clase PartTimeEmployee, para que se cumpla el principio de Liskov, es necesario que la clase PartTimeEmployee implemente getName de una manera válida.
++ Dentro del método constructor de la clase ReportGenerator, el parámetro puede instanciarse tanto como un ReportExcel como un ReportPDF al momento de ejecución según lo que se reciba (polimorfismo). Esto permite cumplir con este principio, al poder permitirse esta sustitución sin que esto conlleve a un mal funcionamiento del método.
 
 4 - INTERFACE SEGREGATION PRINCIPLE (ISP):
 
-+ La clase PartTimeEmployee no necesita el método getName, por ende, Empployee está definiendo métodos innecesarios para ser implementados dentro de esta clase, por lo que se puede definir una interfaz que use el método getName para que sea implementado en las clases necesarias.
++ Debido a que la clase PartTimeEmployee no necesita el método getName que le hereda su clase padre, se puede cortar esta relación padre-hijo entre las clases y separar los métodos de getName y getDepartament en nuevas interfaces distintas, que en este caso son las interfaces NamedEmployee y DeparmentEmployee. Esto permite que las clases que vayan a implementar de ellas, solo puedan implementar los métodos que realmente necesitan; por lo que, se hace que la clase Employee implemente ambas interfaces y, en cambio, la clase PartTimeEmployee solo implemente de DeparmentEmployee.
 
 5 - DEPENDENCY INVERSION PRINCIPLE (DIP):
 
-+ Para la clase SalaryCalculator se sugiere pasar el objeto de EmployeeManager por medio del constructor en lugar de instanciarse directamente en su método de calculateSalary.
++ Se hace que los módulos de bajo nivel, como lo son las clases ReportExcel y ReportPDF, implementen de la interfaz Report para que así la clase ReportGenerator solo dependa de este. Lo anterior permite que los módulos de alto nivel no dependan de las de bajo nivel, permitiendo bajar el nivel de acoplamiento entre las clases.
+
++ Por como estaba originalmente la clase SalaryCalculator, debido a que este instanciaba un EmployeeManager, se sugirió pasar el objeto de EmployeeManager por medio del constructor y así poder quedarse como atributo privado de la clase en lugar de instanciarse directamente en su método de calculateSalary (inyección de dependencias). Sin embargo, este código solución ya no es implementado debido a que se cambió la responsabilidad de la clase calculateSalary, para que esta solo tenga el proósito de calcular el salario de los empleados.

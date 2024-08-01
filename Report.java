@@ -1,3 +1,3 @@
 public interface Report {
-    void generarReporte();
+    void generarReporte(EmployeeManager employeeManager);
 }
