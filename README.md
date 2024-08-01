@@ -40,9 +40,9 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 + En cuanto a la clase EmployeeManager, se pueden mover los métodos de calculateSalary y saveToFile a otras dos clases concretas distintas, para que así solo se maneje desde EmployeeManager la responsabilidad de gestionar empleados, es decir, de poder agregar o eliminarlos. Esto implica tener que quitar esos mismos métodos de la interfaz EmployeeOperations de la cual implementa la clase EmployeeManager.
 
-Por un lado, se modifica la clase SalaryCalculator para solo tenga el método calculateSalary y que se encargue exclusivamente del cálculo del salario (evitando la responsabilidad de tener que instanciar un EmployeeManager). 
++ + Por un lado, se modifica la clase SalaryCalculator para solo tenga el método calculateSalary y que se encargue exclusivamente del cálculo del salario (evitando la responsabilidad de tener que instanciar un EmployeeManager). 
 
-Por otro lado, debido a que el método de saveToFile tampoco se encuentra relacionado con la gestión de empleados sino con la persistencia de datos, se transfiere esta responsabilidad a la nueva clase EmployeePersistence.
++ + Por otro lado, debido a que el método de saveToFile tampoco se encuentra relacionado con la gestión de empleados sino con la persistencia de datos, se transfiere esta responsabilidad a la nueva clase EmployeePersistence.
 
 + Para que la clase ReportGenerator cumpla también con este principio, se divide sus responsabilidades en dos nuevas clases concretas que son ReportExcel y ReportPDF, las cuales implementan de la nueva interfaz Report que las fuerza a implementar el método generarReporte, que recibe como parámetro una instancia de EmployeeManager (como estaba originalmente en los métodos de ReportGenerator).
 
