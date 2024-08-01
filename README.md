@@ -59,4 +59,4 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 5 - Para la clase SalaryCalculator, se sugiere pasar el objeto de EmployeeManager por medio del constructor en lugar de instanciarse directamente en su método de calculateSalary.
 
-[PONER CÓDIGO] a
+[PONER CÓDIGO] 
