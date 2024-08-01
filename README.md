@@ -38,26 +38,25 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 1 - En cuanto a la clase EmployeeManager, se pueden mover los métodos de calculateSalary y saveToFile a otras dos clases distintas para que solo se maneje la responsabilidad de agregar o eliminar un empleado.
 
-[PONER CÓDIGO]
-
-+ OPEN/CLOSED PRINCIPLE (OCP):
-
 2 - Solución 2 planteada
 Se crearon la interface Report y las clases ReportPDF,ReportExcel y se modificó la clase ReportGenerator, para que respete el principio open closed
 
-
++ OPEN/CLOSED PRINCIPLE (OCP):
++ 
+3 -
+  
 + LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
 
-3 - 
+4 - Con relación a la clase PartTimeEmployee, para que se cumpla el principio de Liskov es necesario que la clase PartTimeEmployee implemente getName de una manera válida
 
 + INTERFACE SEGREGATION PRINCIPLE (ISP):
 
-4 - Con relación a la clase PartTimeEmployee, se ve conveniente hacer que esta implemente de una interfaz más específica que le permita tener solo los métodos que realmente necesita.
+5 - 
 
 [PONER CÓDIGO]
 
 + DEPENDENCY INVERSION PRINCIPLE (DIP):
 
-5 - Para la clase SalaryCalculator se sugiere pasar el objeto de EmployeeManager por medio del constructor en lugar de instanciarse directamente en su método de calculateSalary.
+6 - Para la clase SalaryCalculator se sugiere pasar el objeto de EmployeeManager por medio del constructor en lugar de instanciarse directamente en su método de calculateSalary.
 
 [PONER CÓDIGO] 
