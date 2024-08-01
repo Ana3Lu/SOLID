@@ -7,8 +7,17 @@ public class PartTimeEmployee extends Employee {
         throw new UnsupportedOperationException();
     }
 }
+//SOLUCION SEGREGACION
+package com.example.demo.unsolid;
 
-//SOLUCION PLANTEADA
+public class PartTimeEmployee extends Employee {
+    // Métodos necesarios para la clase
+}
+
+
+//SOLUCION PLANTEADA LISKOV
+package com.example.demo.unsolid;
+
 public class PartTimeEmployee extends Employee {
     private String name;
 
