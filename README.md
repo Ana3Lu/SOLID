@@ -8,55 +8,54 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 === VIOLACIONES PRINCIPIOS SOLID ===
 
 
-+ SINGLE RESPONSABILITY PRINCIPLE (SRP):
+1 - SINGLE RESPONSABILITY PRINCIPLE (SRP):
 
-1 - Tanto la interfaz EmployeeOperations como la clase EmployeeManager (que implementa de la primera) violan este principio al asumir varias responsabilidades a la vez, como: agregar y remover un empleado, calcular salario y guardar en un archivo. Principalmente, esto hace que la clase pueda verse modificada por varias razones y no solo una, haciendo que su código sea más propenso a errores y se dificulte su mantenimiento.
++ Tanto la interfaz EmployeeOperations como la clase EmployeeManager (que implementa de la primera) violan este principio al asumir varias responsabilidades a la vez, como: agregar y remover un empleado, calcular salario y guardar en un archivo. Principalmente, esto hace que la clase pueda verse modificada por varias razones y no solo una, haciendo que su código sea más propenso a errores y se dificulte su mantenimiento.
 
-2 - En la clase SalaryCalculator se viola este principio, ya que se le esta asumiendo la responsabilidad adicional de crear una instancia para un objeto de otra clase.
++ En la clase SalaryCalculator se viola este principio, ya que se le esta asumiendo la responsabilidad adicional de crear una instancia para un objeto de otra clase.
 
-+ OPEN/CLOSED PRINCIPLE (OCP):
++ Se viola este principio en la clase ReportGenerator, ya que tiene como múltiple responsabilidad el tener métodos que permiten generar reportes en diferentes formatos. 
 
-3 - 
+2 - OPEN/CLOSED PRINCIPLE (OCP):
 
-+ LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
++ En la clase ReportGenerator también se llega a violar este principio, debido a que si en un futuro se desea modificar o implementar nuevos formatos para presentar los informes, se debe manipular el código existente en la clase, haciendo que no cerrada para su modificación y no sea abierta a una fácil extensión.
 
-4 - Con relación a la clase PartTimeEmployee, el hecho de que esta sobreescriba un método heredado para arrojar una excepción, indica que esta clase hija no puede llegar a ser intercambiable por su clase padre al no funcionar de la forma esperada.
+3 - LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
 
-+ INTERFACE SEGREGATION PRINCIPLE (ISP):
++ Con relación a la clase PartTimeEmployee, el hecho de que esta sobreescriba un método heredado para arrojar una excepción, indica que esta clase hija no puede llegar a ser intercambiable por su clase padre al no funcionar de la forma esperada.
 
-5 - La clase PartTimeEmployee, la cual extiende de la clase Employee, viola este principio al sobreescribir un método que realmente no necesita, haciendo que directamente se arroje una excepción al momento de ser llamado. Lo ideal es que la clase PartTimeEmployee no se vea forzada a implementar un método que no necesita por su clase padre.
+4 - INTERFACE SEGREGATION PRINCIPLE (ISP):
 
-+ DEPENDENCY INVERSION PRINCIPLE (DIP):
++ La clase PartTimeEmployee, la cual extiende de la clase Employee, viola este principio al sobreescribir un método que realmente no necesita, haciendo que directamente se arroje una excepción al momento de ser llamado. Lo ideal es que la clase PartTimeEmployee no se vea forzada a implementar un método que no necesita por su clase padre.
 
-6 - En la clase SalaryCalculator, se viola este principio debido a que se mantene un fuerte acoplamiento (dependencia) con otra clase, por hacerse una instancia de un objeto dentro de su método de calculateSalary.
+5 - DEPENDENCY INVERSION PRINCIPLE (DIP):
+
++ En la clase SalaryCalculator, se viola este principio debido a que se mantene un fuerte acoplamiento (dependencia) con otra clase, por hacerse una instancia de un objeto dentro de su método de calculateSalary.
 
 
 === CÓDIGOS DE SOLUCIÓN ===
 
 
-+ SINGLE RESPONSABILITY PRINCIPLE (SRP):
+1 - SINGLE RESPONSABILITY PRINCIPLE (SRP):
 
-1 - En cuanto a la clase EmployeeManager, se pueden mover los métodos de calculateSalary y saveToFile a otras dos clases distintas para que solo se maneje la responsabilidad de agregar o eliminar un empleado.
++ En cuanto a la clase EmployeeManager, se pueden mover los métodos de calculateSalary y saveToFile a otras dos clases distintas para que solo se maneje la responsabilidad de agregar o eliminar un empleado.
 
-2 - Solución 2 planteada
-Se crearon la interface Report y las clases ReportPDF,ReportExcel y se modificó la clase ReportGenerator, para que respete el principio open closed
++ Para que la clase ReportGenerator cumpla también con este principio, se divide sus responsabilidades en dos clases específicas (ReportExcel y ReportPDF), las cuales implementan de la interface Report.
 
-+ OPEN/CLOSED PRINCIPLE (OCP):
+2 - OPEN/CLOSED PRINCIPLE (OCP):
 
-3 -
++ Se vió conveniente crear la interface Report y las clases ReportPDF y ReportExcel; asimismo, se modificó la clase ReportGenerator, para que se respete este principio.
+
++ Con relación a los reportes, crear la interface Report e implementar las clases ReportExcel y ReportPDF permiten cumplir con este principio. Esto debido a que se permite crear nuevas clases que implementen de la interface Report, haciendo que en un futuro se puedan añadir nuevos formatos de reporte (abierto a la extensión), sin que todo este proceso llegue a alterar el código existente.
   
-+ LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
+3 - LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
 
-4 - Con relación a la clase PartTimeEmployee, para que se cumpla el principio de Liskov es necesario que la clase PartTimeEmployee implemente getName de una manera válida
++ Con relación a la clase PartTimeEmployee, para que se cumpla el principio de Liskov, es necesario que la clase PartTimeEmployee implemente getName de una manera válida.
 
-+ INTERFACE SEGREGATION PRINCIPLE (ISP):
+4 - INTERFACE SEGREGATION PRINCIPLE (ISP):
 
-5 - La clase PartTimeEmployee no necesita el método getName, por ende Empployee está definiendo métodos innecesarios para ser implementados en PartTimeEmployee, por lo que se puede definir una interfaz que use el método getName para que sea implementado en las clases necesarias
++ La clase PartTimeEmployee no necesita el método getName, por ende, Empployee está definiendo métodos innecesarios para ser implementados dentro de esta clase, por lo que se puede definir una interfaz que use el método getName para que sea implementado en las clases necesarias.
 
-[PONER CÓDIGO]
+5 - DEPENDENCY INVERSION PRINCIPLE (DIP):
 
-+ DEPENDENCY INVERSION PRINCIPLE (DIP):
-
-6 - Para la clase SalaryCalculator se sugiere pasar el objeto de EmployeeManager por medio del constructor en lugar de instanciarse directamente en su método de calculateSalary.
-
-[PONER CÓDIGO] 
++ Para la clase SalaryCalculator se sugiere pasar el objeto de EmployeeManager por medio del constructor en lugar de instanciarse directamente en su método de calculateSalary.
