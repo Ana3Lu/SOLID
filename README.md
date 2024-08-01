@@ -42,7 +42,8 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 + OPEN/CLOSED PRINCIPLE (OCP):
 
-2 - 
+2 - Solución 2 planteada
+Se crearon la interface Report y las clases ReportPDF,ReportExcel y se modificó la clase ReportGenerator, para que respete el principio open closed
 
 
 + LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
