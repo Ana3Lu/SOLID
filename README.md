@@ -16,7 +16,7 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 + OPEN/CLOSED PRINCIPLE (OCP):
 
-3 -
+3 - 
 
 + LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
 
@@ -42,7 +42,7 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 Se crearon la interface Report y las clases ReportPDF,ReportExcel y se modificó la clase ReportGenerator, para que respete el principio open closed
 
 + OPEN/CLOSED PRINCIPLE (OCP):
-+ 
+
 3 -
   
 + LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
@@ -51,7 +51,7 @@ Se crearon la interface Report y las clases ReportPDF,ReportExcel y se modificó
 
 + INTERFACE SEGREGATION PRINCIPLE (ISP):
 
-5 - 
+5 - La clase PartTimeEmployee no necesita el método getName, por ende Empployee está definiendo métodos innecesarios para ser implementados en PartTimeEmployee, por lo que se puede definir una interfaz que use el método getName para que sea implementado en las clases necesarias
 
 [PONER CÓDIGO]
 
