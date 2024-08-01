@@ -1,12 +1,17 @@
-package com.example.demo.unsolid;
-
+import com.example.demo.unsolid.EmployeeManager;
 public class ReportGenerator {
 
-    public void generateReportExcel(EmployeeManager employeeManager) {
-        // Generar reporte
+    private Report report;
+
+    public ReportGenerator(Report report) {
+        this.report = report;
     }
 
-    public void generateReportPDF(EmployeeManager employeeManager) {
-        // Generar reporte
+    public void generateReport(EmployeeManager employeeManager) {
+        System.out.println("Generando reporte");
+        this.report.generarReporte();
     }
+
+
 }
+
