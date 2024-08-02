@@ -10,7 +10,7 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 1 - SINGLE RESPONSABILITY PRINCIPLE (SRP):
 
-+ Tanto la interfaz EmployeeOperations como la clase EmployeeManager (que implementa de la primera) violan este principio al asumir varias responsabilidades a la vez, como: agregar y remover un empleado, calcular salario y poder guardar en un archivo. Principalmente, esto hace que la clase pueda verse modificada por varias razones y no solo una, haciendo que su código sea más propenso a errores y se dificulte su mantenimiento.
++ Tanto la interfaz EmployeeOperations como la clase EmployeeManager (que implementa de la primera) violan este principio al asumir varias responsabilidades a la vez como: agregar y remover un empleado, calcular salario y poder guardar en un archivo. Principalmente, esto hace que la clase pueda verse modificada por varias razones y no solo una, haciendo que su código sea más propenso a errores y se dificulte su mantenimiento.
 
 + En la clase SalaryCalculator se viola este principio, ya que se le esta asumiendo la responsabilidad adicional de crear una instancia para un objeto de otra clase.
 
@@ -18,7 +18,7 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 2 - OPEN/CLOSED PRINCIPLE (OCP):
 
-+ En la clase ReportGenerator también se llega a violar este principio, debido a que si en un futuro se desea modificar o implementar nuevos formatos para presentar los informes, se debe manipular el código existente en la clase, haciendo que no cerrada para su modificación y no sea abierta a una fácil extensión.
++ En la clase ReportGenerator también se llega a violar este principio, debido a que si en un futuro se desea modificar los formatos ya establecidos o implementar nuevos formatos para presentar los reportes, se debe manipular el código existente en esta clase, haciendo que no sea cerrada para su modificación y no sea abierta a una fácil extensión.
 
 3 - LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
 
@@ -40,11 +40,11 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
 
 + En cuanto a la clase EmployeeManager, se pueden mover los métodos de calculateSalary y saveToFile a otras dos clases concretas distintas, para que así solo se maneje desde EmployeeManager la responsabilidad de gestionar empleados, es decir, de poder agregar o eliminarlos. Esto implica tener que quitar esos mismos métodos de la interfaz EmployeeOperations de la cual implementa la clase EmployeeManager.
 
-+ + Por un lado, se modifica la clase SalaryCalculator para solo tenga el método calculateSalary y que se encargue exclusivamente del cálculo del salario (evitando la responsabilidad de tener que instanciar un EmployeeManager). 
++ + Por un lado, se modifica la clase SalaryCalculator para que solo tenga el método calculateSalary y que se encargue exclusivamente del cálculo del salario (evitando la responsabilidad de tener que instanciar un EmployeeManager). 
 
 + + Por otro lado, debido a que el método de saveToFile tampoco se encuentra relacionado con la gestión de empleados sino con la persistencia de datos, se transfiere esta responsabilidad a la nueva clase EmployeePersistence.
 
-+ Para que la clase ReportGenerator cumpla también con este principio, se divide sus responsabilidades en dos nuevas clases concretas que son ReportExcel y ReportPDF, las cuales implementan de la nueva interfaz Report que las fuerza a implementar el método generarReporte, que recibe como parámetro una instancia de EmployeeManager (como estaba originalmente en los métodos de ReportGenerator).
++ Para que la clase ReportGenerator cumpla también con este principio, se dividen sus responsabilidades en dos nuevas clases concretas que son ReportExcel y ReportPDF, las cuales implementan de la nueva interfaz Report, mediente la cual las fuerza a implementar el método generarReporte, que recibe como parámetro una instancia de EmployeeManager (como estaba originalmente en los métodos de ReportGenerator).
 
 2 - OPEN/CLOSED PRINCIPLE (OCP):
 
@@ -52,11 +52,11 @@ OBJETIVOS DEL TRABAJO: identificar los principios SOLID violados en las clases i
   
 3 - LISKOV'S SUBSTITUTION PRINCIPLE (LSP):
 
-+ Dentro del método constructor de la clase ReportGenerator, el parámetro puede instanciarse tanto como un ReportExcel como un ReportPDF al momento de ejecución según lo que se reciba (polimorfismo). Esto permite cumplir con este principio, al poder permitirse esta sustitución sin que esto conlleve a un mal funcionamiento del método.
++ Dentro del método constructor de la clase ReportGenerator, al momento de ejecución, el parámetro puede instanciarse tanto como ReportExcel como ReportPDF de acuerdo a lo que se reciba (polimorfismo). Esto permite cumplir con este principio, al poder permitirse esta sustitución sin que esto conlleve a un mal funcionamiento del método.
 
 4 - INTERFACE SEGREGATION PRINCIPLE (ISP):
 
-+ Debido a que la clase PartTimeEmployee no necesita el método getName que le hereda su clase padre, se puede cortar esta relación padre-hijo entre las clases y separar los métodos de getName y getDepartament en nuevas interfaces distintas, que en este caso son las interfaces NamedEmployee y DeparmentEmployee. Esto permite que las clases que vayan a implementar de ellas, solo puedan implementar los métodos que realmente necesitan; por lo que, se hace que la clase Employee implemente ambas interfaces y, en cambio, la clase PartTimeEmployee solo implemente de DeparmentEmployee.
++ Debido a que la clase PartTimeEmployee no necesita el método getName que le hereda su clase padre, se puede cortar esta relación padre-hijo entre las clases y separar los métodos de getName y getDepartament en nuevas interfaces distintas, que en este caso son las interfaces NamedEmployee y DeparmentEmployee. Esto permite que las clases que vayan a implementar de ellas, solo utilicen los métodos que realmente necesitan; por lo que, se hace necesario que la clase Employee implemente ambas interfaces y, en cambio, la clase PartTimeEmployee solo implemente de DeparmentEmployee.
 
 5 - DEPENDENCY INVERSION PRINCIPLE (DIP):
 
